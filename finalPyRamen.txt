@@ -1,0 +1,227 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Project I: PyRamen**"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    " @TODO: Import libraries"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import csv\n",
+    "from pathlib import Path"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Set file paths for menu_data.csv and sales_data.csv"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "WindowsPath('Resources/menu_data.csv')"
+      ]
+     },
+     "execution_count": 2,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "menu_inf = Path('Resources/menu_data.csv')\n",
+    "menu_inf"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "WindowsPath('Resources/sales_data.csv')"
+      ]
+     },
+     "execution_count": 3,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "sales_inf = Path('Resources/sales_data.csv')\n",
+    "sales_inf"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Initialize list objects to hold our menu and sales data"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "menu =[]\n",
+    "sales = []\n",
+    "report = {}\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Read in the menu data into the menu and sales lists"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "with open(menu_inf) as Menu:\n",
+    "    csvreader = csv.reader(Menu, delimiter=',')\n",
+    "    \n",
+    "    csv_header = next(csvreader)\n",
+    " \n",
+    "    for row in csv.reader(Menu):\n",
+    "        menu.append(row)\n",
+    " \n",
+    "          \n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "with open(sales_inf) as Sales:\n",
+    "    csvreader = csv.reader(Sales, delimiter=',')\n",
+    "  \n",
+    "    csv_header = next(csvreader)\n",
+    "    \n",
+    "    for inf in csv.reader(Sales):\n",
+    "        sales.append(inf)    "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Manipulate the Data"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "row_count = 0\n",
+    "Count = 0\n",
+    "Revenue = 0\n",
+    "Cogs = 0\n",
+    "Profit = 0"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "{'spicy miso ramen': {'Count': 9238, 'Revenue': 110856.0, 'Cogs': 46190.0, 'Profit': 64666.0}, 'tori paitan ramen': {'Count': 9156, 'Revenue': 119028.0, 'Cogs': 54936.0, 'Profit': 64092.0}, 'truffle butter ramen': {'Count': 8982, 'Revenue': 125748.0, 'Cogs': 62874.0, 'Profit': 62874.0}, 'tonkotsu ramen': {'Count': 9288, 'Revenue': 120744.0, 'Cogs': 55728.0, 'Profit': 65016.0}, 'vegetarian spicy miso': {'Count': 9216, 'Revenue': 110592.0, 'Cogs': 46080.0, 'Profit': 64512.0}, 'shio ramen': {'Count': 9180, 'Revenue': 100980.0, 'Cogs': 45900.0, 'Profit': 55080.0}, 'miso crab ramen': {'Count': 8890, 'Revenue': 106680.0, 'Cogs': 53340.0, 'Profit': 53340.0}, 'nagomi shoyu': {'Count': 9132, 'Revenue': 100452.0, 'Cogs': 45660.0, 'Profit': 54792.0}, 'soft-shell miso crab ramen': {'Count': 9130, 'Revenue': 127820.0, 'Cogs': 63910.0, 'Profit': 63910.0}, 'burnt garlic tonkotsu ramen': {'Count': 9070, 'Revenue': 126980.0, 'Cogs': 54420.0, 'Profit': 72560.0}, 'vegetarian curry + king trumpet mushroom ramen': {'Count': 8824, 'Revenue': 114712.0, 'Cogs': 61768.0, 'Profit': 52944.0}}\n"
+     ]
+    }
+   ],
+   "source": [
+    "for sale in sales:\n",
+    "    Quantity = int(sale[3])\n",
+    "    sales_item = (sale[4])\n",
+    "    if sales_item not in report.keys():\n",
+    "        report[sales_item] = {\"Count\": 0,\n",
+    "                              \"Revenue\": 0,\n",
+    "                              \"Cogs\": 0,\n",
+    "                              \"Profit\": 0 }\n",
+    "    for i in menu:\n",
+    "        item = i[0]\n",
+    "        price = float(i[3])\n",
+    "        cost = float(i[4])\n",
+    "        if sales_item == item:\n",
+    "            report[sales_item][\"Count\"] += Quantity\n",
+    "            report[sales_item][\"Revenue\"] += price * Quantity\n",
+    "            report[sales_item][\"Cogs\"] += cost * Quantity\n",
+    "            report[sales_item][\"Profit\"] += (price * Quantity)-(cost * Quantity)\n",
+    "        #else:\n",
+    "           # print(f\"{sales_item} does not equal {Item}! NO MATCH!\")\n",
+    "row_count += 1\n",
+    "print(report)\n",
+    "    "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.9"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}
